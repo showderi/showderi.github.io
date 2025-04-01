@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tags on Kkirsii</title>
+        <link>https://showderi.github.io/tags/</link>
+        <description>Recent content in Tags on Kkirsii</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Kkirsii重构blog</copyright>
+        <lastBuildDate>Mon, 31 Mar 2025 21:42:13 +0800</lastBuildDate><atom:link href="https://showderi.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Blog</title>
+        <link>https://showderi.github.io/tags/blog/</link>
+        <pubDate>Mon, 31 Mar 2025 21:42:13 +0800</pubDate>
+        
+        <guid>https://showderi.github.io/tags/blog/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Race</title>
+        <link>https://showderi.github.io/tags/race/</link>
+        <pubDate>Mon, 31 Mar 2025 21:42:13 +0800</pubDate>
+        
+        <guid>https://showderi.github.io/tags/race/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

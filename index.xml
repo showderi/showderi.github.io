@@ -2,20 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Kkirsii</title>
-        <link>https://showderi.github.io/</link>
+        <link>http://localhost:1313/</link>
         <description>Recent content on Kkirsii</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Kkirsii重构blog</copyright>
-        <lastBuildDate>Mon, 31 Mar 2025 21:42:13 +0800</lastBuildDate><atom:link href="https://showderi.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 03 Apr 2025 17:14:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>solar应急响应公益月赛-3月</title>
-        <link>https://showderi.github.io/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</link>
-        <pubDate>Mon, 31 Mar 2025 21:42:13 +0800</pubDate>
+        <link>http://localhost:1313/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</link>
+        <pubDate>Mon, 31 Mar 2025 21:42:09 +0800</pubDate>
         
-        <guid>https://showderi.github.io/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</guid>
-        <description>&lt;h2 id=&#34;和黑客去battle吧&#34;&gt;和黑客去Battle吧！
-&lt;/h2&gt;&lt;p&gt;从txt文档中拿到密钥后，登录界面，跟对面砍价
-&lt;img src=&#34;https://showderi.github.io/attachment/d89fe40859aaff4b905624da47201cc3.png&#34;
+        <guid>http://localhost:1313/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</guid>
+        <description>&lt;h2 id=&#34;溯源排查&#34;&gt;溯源排查
+&lt;/h2&gt;&lt;h3 id=&#34;溯源排查--1&#34;&gt;溯源排查 -1
+&lt;/h3&gt;&lt;p&gt;仿真后直接进入系统抓包&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/attachment/984cf4eef3eec53ba5f7aaca8641b7d2.png&#34;
 	
 	
 	
@@ -23,11 +24,82 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;窃密排查-1&#34;&gt;窃密排查-1
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;启动容器后，连接靶机。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;溯源排查-2&#34;&gt;溯源排查-2
+&lt;/h3&gt;&lt;p&gt;用端口去定位进程程序, 抓包可以知道网络包为 udp
+&lt;img src=&#34;http://localhost:1313/attachment/1c7e4b74804584ca8fbde341f8d26a89.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;溯源排查--3&#34;&gt;溯源排查 -3
+&lt;/h3&gt;&lt;p&gt;检查服务
+&lt;img src=&#34;http://localhost:1313/attachment/ae432b4815882f3cbe722f9fc8bf7b65.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;发现可疑服务 systemd-journaled. Service&lt;/p&gt;
+&lt;h3 id=&#34;溯源排查-4&#34;&gt;溯源排查-4
+&lt;/h3&gt;&lt;p&gt;R-studio 找到 nacos
+&lt;img src=&#34;http://localhost:1313/attachment/5b76e13018ce17fb5cdd2f0d488d6d5f.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;溯源排查-5&#34;&gt;溯源排查-5
+&lt;/h3&gt;&lt;p&gt;在漏洞库搜索
+&lt;img src=&#34;http://localhost:1313/attachment/897489bf1cfe7675616bded97adc4f34.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;溯源排查-6&#34;&gt;溯源排查-6
+&lt;/h3&gt;&lt;p&gt;在 tmp 找到
+&lt;img src=&#34;http://localhost:1313/attachment/9b3021f33a97baf21f66bfde0d0be2b4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;复制名称到游览器搜索：
+&lt;img src=&#34;http://localhost:1313/attachment/5b23545ae5ac7e10594d89f994006e7b.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;和黑客去battle把&#34;&gt;和黑客去Battle把！
+&lt;/h2&gt;&lt;p&gt;从txt文档中拿到密钥后，登录界面，跟对面砍价
+&lt;img src=&#34;http://localhost:1313/attachment/d89fe40859aaff4b905624da47201cc3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;窃密排查&#34;&gt;窃密排查
+&lt;/h2&gt;&lt;h3 id=&#34;窃密排查-1&#34;&gt;窃密排查-1
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;启动容器后，连接靶机。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;find . type -f&lt;/strong&gt;，全局搜索修改的文件
-&lt;img src=&#34;https://showderi.github.io/attachment/d41f6eda9bbc7bbd94f9d0dabc24012e.png&#34;
+&lt;img src=&#34;http://localhost:1313/attachment/d41f6eda9bbc7bbd94f9d0dabc24012e.png&#34;
 	
 	
 	
@@ -36,7 +108,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;然后cat megacmdserver.log文件&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://showderi.github.io/attachment/68933df0a595325626e9d50d4143eea9.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/attachment/68933df0a595325626e9d50d4143eea9.jpg&#34;
 	
 	
 	
@@ -45,10 +117,50 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;找到对应的邮箱账号&lt;/p&gt;
+&lt;h3 id=&#34;窃密排查-2&#34;&gt;窃密排查-2
+&lt;/h3&gt;&lt;p&gt;将找到的邮箱账号拿去查询
+&lt;img src=&#34;http://localhost:1313/attachment/a49db675dfe03529d8bdf64c6b0a34b9.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后到 yopmail 进入邮箱，找到恢复密钥
+&lt;img src=&#34;http://localhost:1313/attachment/262c2db81999198b96cc68ccf3f8c769.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+在共享项目找到 flag&lt;/p&gt;
+&lt;h3 id=&#34;窃密排查-3&#34;&gt;窃密排查-3
+&lt;/h3&gt;&lt;p&gt;点开聊天：
+&lt;img src=&#34;http://localhost:1313/attachment/3ed3b156af7b9685e9ea280074f81ca9.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;用给的密钥登录：
+&lt;img src=&#34;http://localhost:1313/attachment/eb516c7bcf9483815d79827de8d7d0ff.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;登录不上&amp;hellip;.，估计是过期了，复现失败。&lt;/p&gt;
 &lt;h2 id=&#34;2503-逆向&#34;&gt;2503 逆向
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;将exe拖入 ida分析&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;分析代码可知，代码前部分设置了一个随机数，根据随机数从字符集取出：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt; &lt;img src=&#34;https://showderi.github.io/attachment/563204b0aa288d62411e179b012dc87f.jpg&#34;
+&lt;p&gt; &lt;img src=&#34;http://localhost:1313/attachment/563204b0aa288d62411e179b012dc87f.jpg&#34;
 	
 	
 	
@@ -57,7 +169,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;初步判断这个加密器是通过rc4加密，找密钥。
-&lt;img src=&#34;https://showderi.github.io/attachment/72682e497589758db1d5edab7515d56b.jpg&#34;
+&lt;img src=&#34;http://localhost:1313/attachment/72682e497589758db1d5edab7515d56b.jpg&#34;
 	
 	
 	
@@ -279,18 +391,18 @@
         </item>
         <item>
         <title>归档</title>
-        <link>https://showderi.github.io/archives/</link>
+        <link>http://localhost:1313/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://showderi.github.io/archives/</guid>
+        <guid>http://localhost:1313/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Links</title>
-        <link>https://showderi.github.io/links/</link>
+        <link>http://localhost:1313/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://showderi.github.io/links/</guid>
+        <guid>http://localhost:1313/links/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -322,19 +434,19 @@
         </item>
         <item>
         <title>关于</title>
-        <link>https://showderi.github.io/%E5%85%B3%E4%BA%8E/</link>
+        <link>http://localhost:1313/%E5%85%B3%E4%BA%8E/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://showderi.github.io/%E5%85%B3%E4%BA%8E/</guid>
+        <guid>http://localhost:1313/%E5%85%B3%E4%BA%8E/</guid>
         <description>&lt;p&gt;这个博主很懒，没有写什么东西&amp;hellip;..&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>搜索</title>
-        <link>https://showderi.github.io/search/</link>
+        <link>http://localhost:1313/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://showderi.github.io/search/</guid>
+        <guid>http://localhost:1313/search/</guid>
         <description></description>
         </item>
         

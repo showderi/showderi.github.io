@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="博客吃灰，回来修整">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="溯源排查 溯源排查 -1 仿真后直接进入系统抓包\n溯源排查-2 用端口去定位进程程序, 抓包可以知道网络包为 udp 溯源排查 -3 检查服务 发现可疑服务 systemd-journaled. Service\n溯源排查-4 R-studio 找到 nacos 溯源排查-5 在漏洞库搜索 溯源排查-6 在 tmp 找到 复制名称到游览器搜索： ">
 <title>solar应急响应公益月赛-3月</title>
 
-<link rel='canonical' href='https://showderi.github.io/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/'>
+<link rel='canonical' href='http://localhost:1313/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/'>
 
 <link rel="stylesheet" href="/scss/style.min.8ccc966bc32cd1bc8869ae65a2d099d31c592cf7383e2c61ed3ed9426d6f4c93.css"><meta property='og:title' content="solar应急响应公益月赛-3月">
-<meta property='og:description' content="博客吃灰，回来修整">
-<meta property='og:url' content='https://showderi.github.io/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/'>
+<meta property='og:description' content="溯源排查 溯源排查 -1 仿真后直接进入系统抓包\n溯源排查-2 用端口去定位进程程序, 抓包可以知道网络包为 udp 溯源排查 -3 检查服务 发现可疑服务 systemd-journaled. Service\n溯源排查-4 R-studio 找到 nacos 溯源排查-5 在漏洞库搜索 溯源排查-6 在 tmp 找到 复制名称到游览器搜索： ">
+<meta property='og:url' content='http://localhost:1313/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/'>
 <meta property='og:site_name' content='Kkirsii'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Blog' /><meta property='article:tag' content='race' /><meta property='article:published_time' content='2025-03-31T21:42:13&#43;08:00'/><meta property='article:modified_time' content='2025-03-31T21:42:13&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Blog' /><meta property='article:tag' content='race' /><meta property='article:published_time' content='2025-03-31T21:42:09&#43;08:00'/><meta property='article:modified_time' content='2025-04-03T17:14:03&#43;08:00'/>
 <meta name="twitter:title" content="solar应急响应公益月赛-3月">
-<meta name="twitter:description" content="博客吃灰，回来修整">
+<meta name="twitter:description" content="溯源排查 溯源排查 -1 仿真后直接进入系统抓包\n溯源排查-2 用端口去定位进程程序, 抓包可以知道网络包为 udp 溯源排查 -3 检查服务 发现可疑服务 systemd-journaled. Service\n溯源排查-4 R-studio 找到 nacos 溯源排查-5 在漏洞库搜索 溯源排查-6 在 tmp 找到 复制名称到游览器搜索： ">
     </head>
     <body class="
     article-page
@@ -265,8 +265,24 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#和黑客去battle吧">和黑客去Battle吧！</a></li>
-    <li><a href="#窃密排查-1">窃密排查-1</a></li>
+    <li><a href="#溯源排查">溯源排查</a>
+      <ol>
+        <li><a href="#溯源排查--1">溯源排查 -1</a></li>
+        <li><a href="#溯源排查-2">溯源排查-2</a></li>
+        <li><a href="#溯源排查--3">溯源排查 -3</a></li>
+        <li><a href="#溯源排查-4">溯源排查-4</a></li>
+        <li><a href="#溯源排查-5">溯源排查-5</a></li>
+        <li><a href="#溯源排查-6">溯源排查-6</a></li>
+      </ol>
+    </li>
+    <li><a href="#和黑客去battle把">和黑客去Battle把！</a></li>
+    <li><a href="#窃密排查">窃密排查</a>
+      <ol>
+        <li><a href="#窃密排查-1">窃密排查-1</a></li>
+        <li><a href="#窃密排查-2">窃密排查-2</a></li>
+        <li><a href="#窃密排查-3">窃密排查-3</a></li>
+      </ol>
+    </li>
     <li><a href="#2503-逆向">2503 逆向</a></li>
   </ol>
 </nav>
@@ -347,7 +363,78 @@
     <section class="article-content">
     
     
-    <h2 id="和黑客去battle吧">和黑客去Battle吧！
+    <h2 id="溯源排查">溯源排查
+</h2><h3 id="溯源排查--1">溯源排查 -1
+</h3><p>仿真后直接进入系统抓包</p>
+<p><img src="/attachment/984cf4eef3eec53ba5f7aaca8641b7d2.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="溯源排查-2">溯源排查-2
+</h3><p>用端口去定位进程程序, 抓包可以知道网络包为 udp
+<img src="/attachment/1c7e4b74804584ca8fbde341f8d26a89.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="溯源排查--3">溯源排查 -3
+</h3><p>检查服务
+<img src="/attachment/ae432b4815882f3cbe722f9fc8bf7b65.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>发现可疑服务 systemd-journaled. Service</p>
+<h3 id="溯源排查-4">溯源排查-4
+</h3><p>R-studio 找到 nacos
+<img src="/attachment/5b76e13018ce17fb5cdd2f0d488d6d5f.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="溯源排查-5">溯源排查-5
+</h3><p>在漏洞库搜索
+<img src="/attachment/897489bf1cfe7675616bded97adc4f34.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="溯源排查-6">溯源排查-6
+</h3><p>在 tmp 找到
+<img src="/attachment/9b3021f33a97baf21f66bfde0d0be2b4.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>复制名称到游览器搜索：
+<img src="/attachment/5b23545ae5ac7e10594d89f994006e7b.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h2 id="和黑客去battle把">和黑客去Battle把！
 </h2><p>从txt文档中拿到密钥后，登录界面，跟对面砍价
 <img src="/attachment/d89fe40859aaff4b905624da47201cc3.png"
 	
@@ -357,8 +444,9 @@
 	
 	
 ></p>
-<h2 id="窃密排查-1">窃密排查-1
-</h2><p><strong>启动容器后，连接靶机。</strong></p>
+<h2 id="窃密排查">窃密排查
+</h2><h3 id="窃密排查-1">窃密排查-1
+</h3><p><strong>启动容器后，连接靶机。</strong></p>
 <p><strong>输入：</strong></p>
 <p><strong>find . type -f</strong>，全局搜索修改的文件
 <img src="/attachment/d41f6eda9bbc7bbd94f9d0dabc24012e.png"
@@ -379,6 +467,46 @@
 	
 ></p>
 <p>找到对应的邮箱账号</p>
+<h3 id="窃密排查-2">窃密排查-2
+</h3><p>将找到的邮箱账号拿去查询
+<img src="/attachment/a49db675dfe03529d8bdf64c6b0a34b9.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>然后到 yopmail 进入邮箱，找到恢复密钥
+<img src="/attachment/262c2db81999198b96cc68ccf3f8c769.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+>
+在共享项目找到 flag</p>
+<h3 id="窃密排查-3">窃密排查-3
+</h3><p>点开聊天：
+<img src="/attachment/3ed3b156af7b9685e9ea280074f81ca9.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>用给的密钥登录：
+<img src="/attachment/eb516c7bcf9483815d79827de8d7d0ff.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>登录不上&hellip;.，估计是过期了，复现失败。</p>
 <h2 id="2503-逆向">2503 逆向
 </h2><p><strong>将exe拖入 ida分析</strong></p>
 <p><strong>分析代码可知，代码前部分设置了一个随机数，根据随机数从字符集取出：</strong></p>
@@ -636,7 +764,19 @@
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Apr 03, 2025 17:14 CST
+        </span>
+    </section></footer>
 
 
     
@@ -793,7 +933,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.b957f27856f5a66f9432aa1cfeb090a22355422d8504934ce4354961a56c3f77.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -808,7 +948,7 @@
 <style>
   @font-face {
     font-family: '圆润';
-    src: url(https://showderi.github.io/font/RawMarukoGothicCJKtc-Regular.ttf) format('truetype');
+    src: url(http://localhost:1313/font/RawMarukoGothicCJKtc-Regular.ttf) format('truetype');
   }
 
   :root {

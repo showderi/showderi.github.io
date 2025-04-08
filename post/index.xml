@@ -2,21 +2,258 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Kkirsii</title>
-        <link>http://localhost:1313/post/</link>
+        <link>https://honestlin.top/post/</link>
         <description>Recent content in Posts on Kkirsii</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Kkirsii重构blog</copyright>
-        <lastBuildDate>Thu, 03 Apr 2025 17:14:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 08 Apr 2025 11:34:44 +0800</lastBuildDate><atom:link href="https://honestlin.top/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>2025 XYCTF WP</title>
+        <link>https://honestlin.top/p/2025-xyctf-wp/</link>
+        <pubDate>Tue, 08 Apr 2025 00:54:43 +0800</pubDate>
+        
+        <guid>https://honestlin.top/p/2025-xyctf-wp/</guid>
+        <description>&lt;h2 id=&#34;misc&#34;&gt;MISC
+&lt;/h2&gt;&lt;h3 id=&#34;签个到吧&#34;&gt;签个到吧
+&lt;/h3&gt;&lt;p&gt;Brainfuck 语言，&amp;rsquo;+-+-+-&amp;lsquo;无效操作会影响解释器运行，删除拿去解密即可
+&lt;img src=&#34;https://honestlin.top/attachment/44b9159586a2274bbf56b274c4e6bf71.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;re&#34;&gt;RE
+&lt;/h2&gt;&lt;h3 id=&#34;warmup&#34;&gt;WARMUP
+&lt;/h3&gt;&lt;p&gt;将前面的Execute改成 &lt;strong&gt;wscript.echo&lt;/strong&gt;, 然后输入&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cscript chal.vbs &amp;gt;&amp;gt; output.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;将执行结果重定向到 txt 文本中，提取 rc4 key 解密
+&lt;img src=&#34;https://honestlin.top/attachment/50e5f3a89eca38e2f36b5788beb19698.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+然后 flag 里面内容 md 5 加密提交即可&lt;/p&gt;
+&lt;h3 id=&#34;dragon&#34;&gt;Dragon
+&lt;/h3&gt;&lt;p&gt;Window 环境 LLVM clang 编写的 bc 文件，需要将它继续编译&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clang dragon.bc -o dragon
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;根据字符串定位到主函数，并进入比较函数：
+&lt;img src=&#34;https://honestlin.top/attachment/ae2231a244be235f51317ab3906cb9f3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;有个常量 0x42F0E1EBA9EA3693，搜索发现是 CRC-64 算法
+&lt;img src=&#34;https://honestlin.top/attachment/9e614884ff235d5a30d26be769d2122f.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;小端序存储，每次传入两个字节，直接让 ds 写个脚本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;struct&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;compute_crc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xFFFFFFFFFFFFFFFF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;byte&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;byte&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;56&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xFFFFFFFFFFFFFFFF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;63&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x42F0E1EBA9EA3693&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;=&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xFFFFFFFFFFFFFFFF&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 保持64位&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xFFFFFFFFFFFFFFFF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 将十六进制数据按小端序转换为目标值&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fromhex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;477B9F414EE363DCC6BFB2E7D4F81E039ED85F62BC2FD612E85557CCE1B6E883CC65B62AEBB17BFC6BD9622A1BCA829387C37376A0F8FFB1E1058E382716A80DB7AAD0E81AE6F19E4561F2E7D23F78920BE66FF5A17CC963AB3AB743B0A8D39B&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;targets&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unpack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;Q&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 修正为小端序&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;flag&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytearray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;idx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;enumerate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;targets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;found&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 枚举所有可能的两个字节组合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b0&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;256&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;256&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;candidate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;crc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;compute_crc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;candidate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;crc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;found&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;candidate&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;found&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;flag&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;extend&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;found&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;目标值 {idx+1}: {hex(target)} 匹配到: {found}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;found&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;未找到匹配目标值: {hex(target)}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;exit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Flag:&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flag&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;moon&#34;&gt;Moon
+&lt;/h3&gt;&lt;p&gt;信息收集，定位到 pyd 字符串常量存放位置，找到目标字符串：
+&lt;img src=&#34;https://honestlin.top/attachment/50830e6080b0cce1eb5971d57bb723e0.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+Pyd 总共定义了两个函数 check_flag 和 xor_crypt, Check_flag 函数调用了 xor_crypt 函数，因此只需要调试 check_flag 函数即可。
+&lt;img src=&#34;https://honestlin.top/attachment/0aeb82a18a55f4d837fe59e96f7babc6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Pyd 函数真正的入口：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://honestlin.top/attachment/2efab7dc1f5c18168e793cf0baf3106e.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这里函数逻辑运算入口：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://honestlin.top/attachment/3bd68b30c50703c11ae7d08c4f9bf468.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;直接到比较处下断点：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://honestlin.top/attachment/b42f8d5ae5b24f06085cccfcd2abfa57.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;查看 v45 和 v10 处，发现一个为目标字符，另一个应该加密产生的字符，结合函数名，猜测该字符为异或所产生，只需要将输入字符 byte 改为 0 即可得到密钥
+&lt;img src=&#34;https://honestlin.top/attachment/0dd0521700fe7b24fbd3c8bca4559ea4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;定位到此处，将 rax 处的输入字符修改为 0 byte
+&lt;img src=&#34;https://honestlin.top/attachment/aa876ef37f8f918793be33050815b2ca.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;得到密钥：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://honestlin.top/attachment/f820a3d3a361faabe4364c996651febb.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;解密：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://honestlin.top/attachment/9ce9c7b9bc6b0efa1d6aea89bdbd2108.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>solar应急响应公益月赛-3月</title>
-        <link>http://localhost:1313/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</link>
+        <link>https://honestlin.top/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</link>
         <pubDate>Mon, 31 Mar 2025 21:42:09 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</guid>
+        <guid>https://honestlin.top/p/solar%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%AC%E7%9B%8A%E6%9C%88%E8%B5%9B-3%E6%9C%88/</guid>
         <description>&lt;h2 id=&#34;溯源排查&#34;&gt;溯源排查
 &lt;/h2&gt;&lt;h3 id=&#34;溯源排查--1&#34;&gt;溯源排查 -1
 &lt;/h3&gt;&lt;p&gt;仿真后直接进入系统抓包&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/attachment/984cf4eef3eec53ba5f7aaca8641b7d2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://honestlin.top/attachment/984cf4eef3eec53ba5f7aaca8641b7d2.png&#34;
 	
 	
 	
@@ -26,7 +263,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;溯源排查-2&#34;&gt;溯源排查-2
 &lt;/h3&gt;&lt;p&gt;用端口去定位进程程序, 抓包可以知道网络包为 udp
-&lt;img src=&#34;http://localhost:1313/attachment/1c7e4b74804584ca8fbde341f8d26a89.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/1c7e4b74804584ca8fbde341f8d26a89.png&#34;
 	
 	
 	
@@ -36,7 +273,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;溯源排查--3&#34;&gt;溯源排查 -3
 &lt;/h3&gt;&lt;p&gt;检查服务
-&lt;img src=&#34;http://localhost:1313/attachment/ae432b4815882f3cbe722f9fc8bf7b65.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/ae432b4815882f3cbe722f9fc8bf7b65.png&#34;
 	
 	
 	
@@ -47,7 +284,7 @@
 &lt;p&gt;发现可疑服务 systemd-journaled. Service&lt;/p&gt;
 &lt;h3 id=&#34;溯源排查-4&#34;&gt;溯源排查-4
 &lt;/h3&gt;&lt;p&gt;R-studio 找到 nacos
-&lt;img src=&#34;http://localhost:1313/attachment/5b76e13018ce17fb5cdd2f0d488d6d5f.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/5b76e13018ce17fb5cdd2f0d488d6d5f.png&#34;
 	
 	
 	
@@ -57,7 +294,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;溯源排查-5&#34;&gt;溯源排查-5
 &lt;/h3&gt;&lt;p&gt;在漏洞库搜索
-&lt;img src=&#34;http://localhost:1313/attachment/897489bf1cfe7675616bded97adc4f34.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/897489bf1cfe7675616bded97adc4f34.png&#34;
 	
 	
 	
@@ -67,7 +304,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;溯源排查-6&#34;&gt;溯源排查-6
 &lt;/h3&gt;&lt;p&gt;在 tmp 找到
-&lt;img src=&#34;http://localhost:1313/attachment/9b3021f33a97baf21f66bfde0d0be2b4.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/9b3021f33a97baf21f66bfde0d0be2b4.png&#34;
 	
 	
 	
@@ -76,7 +313,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;复制名称到游览器搜索：
-&lt;img src=&#34;http://localhost:1313/attachment/5b23545ae5ac7e10594d89f994006e7b.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/5b23545ae5ac7e10594d89f994006e7b.png&#34;
 	
 	
 	
@@ -86,7 +323,7 @@
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;和黑客去battle把&#34;&gt;和黑客去Battle把！
 &lt;/h2&gt;&lt;p&gt;从txt文档中拿到密钥后，登录界面，跟对面砍价
-&lt;img src=&#34;http://localhost:1313/attachment/d89fe40859aaff4b905624da47201cc3.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/d89fe40859aaff4b905624da47201cc3.png&#34;
 	
 	
 	
@@ -99,7 +336,7 @@
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;启动容器后，连接靶机。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;find . type -f&lt;/strong&gt;，全局搜索修改的文件
-&lt;img src=&#34;http://localhost:1313/attachment/d41f6eda9bbc7bbd94f9d0dabc24012e.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/d41f6eda9bbc7bbd94f9d0dabc24012e.png&#34;
 	
 	
 	
@@ -108,7 +345,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;然后cat megacmdserver.log文件&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/attachment/68933df0a595325626e9d50d4143eea9.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://honestlin.top/attachment/68933df0a595325626e9d50d4143eea9.jpg&#34;
 	
 	
 	
@@ -119,7 +356,7 @@
 &lt;p&gt;找到对应的邮箱账号&lt;/p&gt;
 &lt;h3 id=&#34;窃密排查-2&#34;&gt;窃密排查-2
 &lt;/h3&gt;&lt;p&gt;将找到的邮箱账号拿去查询
-&lt;img src=&#34;http://localhost:1313/attachment/a49db675dfe03529d8bdf64c6b0a34b9.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/a49db675dfe03529d8bdf64c6b0a34b9.png&#34;
 	
 	
 	
@@ -128,7 +365,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;然后到 yopmail 进入邮箱，找到恢复密钥
-&lt;img src=&#34;http://localhost:1313/attachment/262c2db81999198b96cc68ccf3f8c769.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/262c2db81999198b96cc68ccf3f8c769.png&#34;
 	
 	
 	
@@ -139,28 +376,28 @@
 在共享项目找到 flag&lt;/p&gt;
 &lt;h3 id=&#34;窃密排查-3&#34;&gt;窃密排查-3
 &lt;/h3&gt;&lt;p&gt;点开聊天：
-&lt;img src=&#34;http://localhost:1313/attachment/3ed3b156af7b9685e9ea280074f81ca9.png&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/3ed3b156af7b9685e9ea280074f81ca9.png&#34;
 	
 	
 	
 	loading=&#34;lazy&#34;
 	
 	
-&gt;
-用给的密钥登录：
-&lt;img src=&#34;http://localhost:1313/attachment/eb516c7bcf9483815d79827de8d7d0ff.png&#34;
+&gt;&lt;/p&gt;
+&lt;p&gt;用给的密钥登录：
+&lt;img src=&#34;https://honestlin.top/attachment/eb516c7bcf9483815d79827de8d7d0ff.png&#34;
 	
 	
 	
 	loading=&#34;lazy&#34;
 	
 	
-&gt;
-登录不上&amp;hellip;.，估计是过期了，复现失败。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;登录不上&amp;hellip;.，估计是过期了，复现失败。&lt;/p&gt;
 &lt;h2 id=&#34;2503-逆向&#34;&gt;2503 逆向
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;将exe拖入 ida分析&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;分析代码可知，代码前部分设置了一个随机数，根据随机数从字符集取出：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt; &lt;img src=&#34;http://localhost:1313/attachment/563204b0aa288d62411e179b012dc87f.jpg&#34;
+&lt;p&gt; &lt;img src=&#34;https://honestlin.top/attachment/563204b0aa288d62411e179b012dc87f.jpg&#34;
 	
 	
 	
@@ -169,7 +406,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;初步判断这个加密器是通过rc4加密，找密钥。
-&lt;img src=&#34;http://localhost:1313/attachment/72682e497589758db1d5edab7515d56b.jpg&#34;
+&lt;img src=&#34;https://honestlin.top/attachment/72682e497589758db1d5edab7515d56b.jpg&#34;
 	
 	
 	

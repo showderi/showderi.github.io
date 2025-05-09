@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="最难崩的一集，头一次见到 web, pwn 是静态 flag，re ，MISC 是动态 flag 的比赛了。\nSP 签到题\n1 upx -d sp.exe 脱壳 然后在 incorrect 比较函数处下断点就可以得到 flag 了\n我爱看小品 pyc 逆向，运行程序出现报错，baidu 一下：\n">
+<title>2025 ISCC WP</title>
+
+<link rel='canonical' href='http://localhost:1313/p/2025-iscc-wp/'>
+
+<link rel="stylesheet" href="/scss/style.min.8ccc966bc32cd1bc8869ae65a2d099d31c592cf7383e2c61ed3ed9426d6f4c93.css"><meta property='og:title' content="2025 ISCC WP">
+<meta property='og:description' content="最难崩的一集，头一次见到 web, pwn 是静态 flag，re ，MISC 是动态 flag 的比赛了。\nSP 签到题\n1 upx -d sp.exe 脱壳 然后在 incorrect 比较函数处下断点就可以得到 flag 了\n我爱看小品 pyc 逆向，运行程序出现报错，baidu 一下：\n">
+<meta property='og:url' content='http://localhost:1313/p/2025-iscc-wp/'>
+<meta property='og:site_name' content='Kkirsii'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='比赛' /><meta property='article:published_time' content='2025-05-07T21:53:56&#43;08:00'/><meta property='article:modified_time' content='2025-05-09T16:02:32&#43;08:00'/>
+<meta name="twitter:title" content="2025 ISCC WP">
+<meta name="twitter:description" content="最难崩的一集，头一次见到 web, pwn 是静态 flag，re ，MISC 是动态 flag 的比赛了。\nSP 签到题\n1 upx -d sp.exe 脱壳 然后在 incorrect 比较函数处下断点就可以得到 flag 了\n我爱看小品 pyc 逆向，运行程序出现报错，baidu 一下：\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_b51e9548e1c53d6d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Kkirsii</a></h1>
+            <h2 class="site-description">风平浪静</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#sp">SP</a></li>
+    <li><a href="#我爱看小品">我爱看小品</a></li>
+    <li><a href="#三进制战争">三进制战争</a></li>
+    <li><a href="#encode">Encode</a></li>
+    <li><a href="#冗余的代码">冗余的代码</a></li>
+    <li><a href="#睡蕉小猴">睡蕉小猴</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/race/" >
+                Race
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2025-iscc-wp/">2025 ISCC WP</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 07, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>最难崩的一集，头一次见到 web, pwn 是静态 flag，re ，MISC 是动态 flag 的比赛了。</p>
+<h2 id="sp">SP
+</h2><p>签到题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">upx -d sp.exe 脱壳
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在 incorrect 比较函数处下断点就可以得到 flag 了</p>
+<p><img src="/attachment/59b5c7ba0927a451c5d8e8026b99c47a.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h2 id="我爱看小品">我爱看小品
+</h2><p>pyc 逆向，运行程序出现报错，baidu 一下：</p>
+<p><img src="/attachment/3bafb77c47240d45e2bd60cfefd39591.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>发现是个 pyinstaller 打包的程序。</p>
+<p>拿 pyinstxtractor 解包程序，发现有个 something, pyz 加密包</p>
+<p><img src="/attachment/a712b0bcff2fac40e71157d9f58dfa8d.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>拿 uncompyle 6 梭一下，引用了 mypy, yourpy，这两个文件都在 pyz 加密包里面，因此需要解开</p>
+<p><img src="/attachment/e4dab68108097cbe85a1239faa0fcf34.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>python 3.11 一直解不出 pyc. encrypted 文件，因此在python 3.8 环境用 pyinstxtractor-ng 解包程序，拿到 key (在 pyimod 00_crypto_key. pyc 里面)，在 pyinstxtractor-ng github 上可以找到对应版本的解密脚本，解密：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#!/usr/bin/env python3
+</span></span><span class="line"><span class="cl"># For pyinstaller &gt;= 4.0
+</span></span><span class="line"><span class="cl">import tinyaes
+</span></span><span class="line"><span class="cl">import zlib
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CRYPT_BLOCK_SIZE = 16
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># key obtained from pyimod00_crypto_key
+</span></span><span class="line"><span class="cl">key = bytes(&#39;yibaibayibei1801&#39;, &#39;utf-8&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">inf = open(&#39;mypy.pyc.encrypted&#39;, &#39;rb&#39;) # encrypted file input
+</span></span><span class="line"><span class="cl">outf = open(&#39;mypy.pyc&#39;, &#39;wb&#39;) # output file 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Initialization vector
+</span></span><span class="line"><span class="cl">iv = inf.read(CRYPT_BLOCK_SIZE)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cipher = tinyaes.AES(key, iv)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Decrypt and decompress
+</span></span><span class="line"><span class="cl">plaintext = zlib.decompress(cipher.CTR_xcrypt_buffer(inf.read()))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Write pyc header
+</span></span><span class="line"><span class="cl"># The header below is for Python 3.8
+</span></span><span class="line"><span class="cl">outf.write(b&#39;\x55\x0d\x0d\x0a\0\0\0\0\0\0\0\0\0\0\0\0&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Write decrypted data
+</span></span><span class="line"><span class="cl">outf.write(plaintext)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">inf.close()
+</span></span><span class="line"><span class="cl">outf.close()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后再梭 mypy. pyc, yourpy. pyc：</p>
+<p><img src="/attachment/33296cda5890517d79e5c72e30c3ed37.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>字符处理，解密即可。</p>
+<h2 id="三进制战争">三进制战争
+</h2><p>frida 一把梭，解密脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">import</span> <span class="n">frida</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">current_char_index</span> <span class="o">=</span> <span class="mi">32</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;send&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 获取原始返回值</span>
+</span></span><span class="line"><span class="cl">        <span class="n">payload</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;payload&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;char&#39;</span> <span class="ow">in</span> <span class="n">payload</span> <span class="ow">and</span> <span class="s1">&#39;result&#39;</span> <span class="ow">in</span> <span class="n">payload</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">char</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;char&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;[+] 字符: {char}, 方法返回值: {result}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;[+] 方法返回值: {payload}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">jscode</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">Java.perform(function () {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    var MainActivity = Java.use(&#39;com.example.mobile02.MainActivity&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Java.choose(&#39;com.example.mobile02.MainActivity&#39;, {
+</span></span></span><span class="line"><span class="cl"><span class="s2">        onMatch: function(instance) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            try {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                var target = &#34;002102001221012212020121001200001221&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                var a = &#34;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                var sum = 1;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                var found = false;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">                while (!found &amp;&amp; (sum * 6) &lt;= target.length) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    let matched = false;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    for (let k = 32; k &lt;= 126; k++) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        let str3 = a + String.fromCharCode(k);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        let str1 = instance.stringFromJNl(&#34;da156b6a06bcd826c60f07bfe2136d87&#34;, str3);
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        if (str1 == target.substring(0, sum * 6)) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                            console.log(&#34;已匹配: &#34; + str1);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                            a = str3;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                            sum += 1;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                            matched = true;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                            if (str1 == target) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                                found = true;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                                console.log(&#34;最终匹配成功: &#34; + a);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                            }
+</span></span></span><span class="line"><span class="cl"><span class="s2">                            break; // 找到本轮字符，进入下一轮
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        }
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    }
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    if (!matched) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        console.error(&#34;未找到匹配字符，当前a: &#34; + a);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        break;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    }
+</span></span></span><span class="line"><span class="cl"><span class="s2">                }
+</span></span></span><span class="line"><span class="cl"><span class="s2">            } catch (e) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                console.error(&#34;调用失败: &#34; + e);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            }
+</span></span></span><span class="line"><span class="cl"><span class="s2">        },
+</span></span></span><span class="line"><span class="cl"><span class="s2">        onComplete: function() {}
+</span></span></span><span class="line"><span class="cl"><span class="s2">    });
+</span></span></span><span class="line"><span class="cl"><span class="s2">});
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">device</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">session</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&#34;mobile02&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">except</span> <span class="n">frida</span><span class="o">.</span><span class="n">ProcessNotFoundError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[-] 应用未运行！请先启动应用&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">script</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">jscode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="encode">Encode
+</h2><p>apk 损坏且没有签名，把 dex 拿出来反编译：</p>
+<p><img src="/attachment/f5ea333ef8f3c3bfc36ea730df5222b2.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>flag 分为两部分，后半部分在 JNI nativeCheckLast 处，前半部分在 JNI nativeCheckFormat。apk 损坏动调不了，只能拉 so 硬造了。nativeCheckLast 是一个简单的字符置换</p>
+<p><img src="/attachment/b83fa1a11f441fe0fbd8e6ddd74446bd.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>将密文加 3 就可以得到后半部分的 flag</p>
+<p><img src="/attachment/42df8dea594784817ba89c03a82c35fd.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>前半部分是一个异或加 base 编码：
+<img src="/attachment/617369166254b0266a3ce1801e7e07ab.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>密文在此处：
+<img src="/attachment/7e2c83d5bbe1bb2cfe391afdd11e9209.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>解密：</p>
+<p><img src="/attachment/1e446d94aa8ded49cd548c48e51d0eb5.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>最终 ISCC{Slyth3r! n_L@bYrinth }</p>
+<h2 id="冗余的代码">冗余的代码
+</h2><p>一个没符号的程序，懒得恢复，硬调
+简单分析一下主函数，是一个 5 x 5 的迷宫，因此只要让输入最终为迷宫的正确路径即可得到 flag
+迷宫：*11110100001010000101111#
+正确路径:020202040401010404020202</p>
+<p>用 IDA 插件发现有个 xxtea 加密。</p>
+<p><img src="/attachment/5e3539f6f0f90e858a168685b9c5b4e2.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>在此处打个断点，看看输入的值在此之前有无进行处理：</p>
+<p><img src="/attachment/773aa3c597b9686c9d1881189bcca0af.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>此处输入的 080808 被转换为 02030405，说明前面对输入字符进行了处理，将 02030405 输入，发现变回了 080808，说明是一个 xor 加密</p>
+<p><img src="/attachment/24e9ac6abd91d31cce0992164c1e8158.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>这里是一个迷宫路径移动的逻辑代码，需要让输入字符最终得到正确走完迷宫，迷宫已知，因此输入字符处理后的字符串为 <strong>020202040401010404020202</strong>, 也就是 xxtea 后的密文。</p>
+<p><img src="/attachment/b2a4494b16d28afcac955e615deae62e.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>然后到字符最终检验处看输入值是否还有变化</p>
+<p><img src="/attachment/0ac27429b013e712e5413691dd22cd87.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>没有变化，至此该程序已分析完毕。</p>
+<h2 id="睡蕉小猴">睡蕉小猴
+</h2><p>安装 apk 运行后发现有个视频一直进不去，需要 hook 对应的函数进行跳过。</p>
+<p><img src="/attachment/fd4d8ec1db453ac74ceaa5e3eb0af01f.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>接着分析主函数发现有个 getsnowkey () 函数，调用它返回 snow key（我一直以为这玩意是自定义的函数，原来是一个隐写，在这卡了半天）</p>
+<p><img src="/attachment/6ed023f5f2a66c3beb0790dcebb2d9ce.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>frida 脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">frida</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rdev</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_remote_device</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">pid</span> <span class="o">=</span> <span class="n">rdev</span><span class="o">.</span><span class="n">spawn</span><span class="p">([</span><span class="s2">&#34;com.example.mobile03&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">session</span> <span class="o">=</span> <span class="n">rdev</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">scr</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">Java.perform(function () {
+</span></span></span><span class="line"><span class="cl"><span class="s2">        // Hook MainActivity.showAd 方法
+</span></span></span><span class="line"><span class="cl"><span class="s2">        var MainActivity = Java.use(&#34;com.example.mobile03.MainActivity&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">        var showAd = MainActivity.showAd;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        showAd.implementation = function () {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            // 修改 showAd 方法的实现，不执行原方法
+</span></span></span><span class="line"><span class="cl"><span class="s2">        };
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        var MainActivity = Java.use(&#34;com.example.mobile03.MainActivity&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">        var check = MainActivity.check;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        check.implementation = function(str){
+</span></span></span><span class="line"><span class="cl"><span class="s2">            console.log(str);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            var result = this.check(str);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            console.log(result);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            return result;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        }
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        // Hook MainActivity.Jformat 方法
+</span></span></span><span class="line"><span class="cl"><span class="s2">        var MainActivity = Java.use(&#34;com.example.mobile03.MainActivity&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">        var Jformat = MainActivity.Jformat;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Jformat.implementation = function (str1, str2) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            console.log(str1, str2);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            var result = this.Jformat(str1, str2);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            console.log(result);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            return result;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        };
+</span></span></span><span class="line"><span class="cl"><span class="s2">    });
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">scr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">rdev</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>hook 返回的 key:</p>
+<p><img src="/attachment/741f28c6a8de326af3080aef712b20c6.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>在资源文件中找到 snow 隐写的 txt，解密得到一串 16 进制数。</p>
+<p><img src="/attachment/1edea9f7b7924b344fedbce129a5b07d.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>接着分析 Jformat 方法，发现它调用了一个 isFlag 方法，全局字符串搜索，定位到相关函数：</p>
+<p><img src="/attachment/3d1e9d5ded2d1d7b064fad5c1348f035.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>有公钥和私钥，初步判断为 rsa 加密，target 就是要解密的文本，既然要解密，因此我们只需要拿到私钥就可以了，同样定位字符串找到初始定义。</p>
+<p><img src="/attachment/4c438049e6805d37c7822010ad4de4b4.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>frida Hook 不住，应该缺少了环境，拿 unidbg 补环境去跑一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">ISCC</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.alibaba.fastjson.util.IOUtils</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.AndroidEmulator</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.Module</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.arm.backend.Unicorn2Factory</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.debugger.Debugger</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.linux.android.AndroidEmulatorBuilder</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.linux.android.AndroidResolver</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.linux.android.dvm.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.github.unidbg.memory.Memory</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.File</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.FileNotFoundException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">mobile</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AbstractJni</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">AndroidEmulator</span><span class="w"> </span><span class="n">emulator</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">VM</span><span class="w"> </span><span class="n">vm</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Module</span><span class="w"> </span><span class="n">module</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">swan</span><span class="p">,</span><span class="w"> </span><span class="n">pig</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">logging</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">mobile</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">logging</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">FileNotFoundException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">logging</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logging</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 创建模拟器实例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">emulator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AndroidEmulatorBuilder</span><span class="p">.</span><span class="na">for64Bit</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">setProcessName</span><span class="p">(</span><span class="s">&#34;com.example.test&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">addBackendFactory</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Unicorn2Factory</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 模拟器的内存操作接口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="n">Memory</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emulator</span><span class="p">.</span><span class="na">getMemory</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">memory</span><span class="p">.</span><span class="na">setLibraryResolver</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">AndroidResolver</span><span class="p">(</span><span class="n">23</span><span class="p">));</span><span class="w"> </span><span class="c1">// 设置系统类库解析</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 创建 Android 虚拟机</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emulator</span><span class="p">.</span><span class="na">createDalvikVM</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">));</span><span class="c1">//你的文件路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="p">.</span><span class="na">setVerbose</span><span class="p">(</span><span class="n">logging</span><span class="p">);</span><span class="w"> </span><span class="c1">// 设置是否打印 Jni 调用细节</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vm</span><span class="p">.</span><span class="na">setJni</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">DalvikModule</span><span class="w"> </span><span class="n">dm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">),</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="c1">//你的文件路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dm</span><span class="p">.</span><span class="na">getModule</span><span class="p">();</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Debugger</span><span class="w"> </span><span class="n">attach</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emulator</span><span class="p">.</span><span class="na">attach</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">attach</span><span class="p">.</span><span class="na">addBreakPoint</span><span class="p">(</span><span class="n">module</span><span class="p">.</span><span class="na">base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">0x0000000000021B04</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dm</span><span class="p">.</span><span class="na">callJNI_OnLoad</span><span class="p">(</span><span class="n">emulator</span><span class="p">);</span><span class="w"> </span><span class="c1">// 手动执行 JNI_OnLoad 函数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">swan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;com/example/mobile03/swan&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">pig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">.</span><span class="na">resolveClass</span><span class="p">(</span><span class="s">&#34;pig&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">mobile</span><span class="p">(</span><span class="n">AndroidEmulator</span><span class="w"> </span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="n">VM</span><span class="w"> </span><span class="n">vm</span><span class="p">,</span><span class="w"> </span><span class="n">Module</span><span class="w"> </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">mMainActivity</span><span class="p">,</span><span class="w"> </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">swan</span><span class="p">,</span><span class="w"> </span><span class="n">DvmClass</span><span class="w"> </span><span class="n">pig</span><span class="p">,</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">logging</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">emulator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emulator</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">vm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vm</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">swan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">swan</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">pig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pig</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">logging</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logging</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">IOUtils</span><span class="p">.</span><span class="na">close</span><span class="p">(</span><span class="n">emulator</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">logging</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;destroy&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mobile</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">mobile</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">test</span><span class="p">.</span><span class="na">encrypt</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">test</span><span class="p">.</span><span class="na">destroy</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">encrypt</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">swan</span><span class="p">.</span><span class="na">callStaticJniMethodObject</span><span class="p">(</span><span class="n">emulator</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;getPvKey()Ljava/lang/String;&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>将得到密钥流 xor 回输入的字符，然后再与 snow 隐写的数据进行解密，得到一串 rsa 私钥</p>
+<p><img src="/attachment/a21aaa7486800d60fa2e12267b73ac8c.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>拿去 rsa 解密</p>
+<p><img src="/attachment/0d3a9aac6c9d90eed0c90ce152178dfe.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>晕，这玩意是 11 位后面的 flag，还有一段，源代码看不出有啥，我直接字符串大法（😀）。</p>
+<p><img src="/attachment/062c9c5298edbb64bca964c02e2cb404.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>一个简单字符替换，最终 ISCC{Z5$uK7w2#JkQ}</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%AF%94%E8%B5%9B/">比赛</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 May 09, 2025 16:02 CST
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Kkirsii重构blog
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.b957f27856f5a66f9432aa1cfeb090a22355422d8504934ce4354961a56c3f77.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+  @font-face {
+    font-family: '圆润';
+    src: url(http://localhost:1313/font/RawMarukoGothicCJKtc-Regular.ttf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: '圆润';
+    --code-font-family: '圆润';
+  }
+
+</style>
+
+
+
+    </body>
+</html>
